@@ -1,0 +1,55 @@
+<div class="container">
+  <ng-template appPlaceholder></ng-template>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div *appCustomIf="isLoading" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+      <!-- Template Driven Form -->
+      <form #authForm="ngForm" (ngSubmit)="onSubmitTemplate(authForm)" *appCustomIf="!isLoading">
+        <h1>Template Driven Form</h1>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" class="form-control" ngModel name="email" required email />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6" />
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">
+            {{ isLoginMode ? 'Login' : 'Sign Up' }}
+          </button>
+          <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+            Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
+          </button>
+        </div>
+        <hr>
+      </form>
+      <!-- Reactive Forms -->
+      <form [formGroup]="authForm" (ngSubmit)="onSubmitReactive()" *appCustomIf="!isLoading">
+        <h1>Reactive Form Form</h1>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" class="form-control" formControlName="email" name="email" required email />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" formControlName="password" name="password" required minlength="6" />
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">
+            {{ isLoginMode ? 'Login' : 'Sign Up' }}
+          </button>
+          <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
+            Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
